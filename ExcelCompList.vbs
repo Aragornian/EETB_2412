@@ -4,6 +4,9 @@
 ' in the Excel spreadsheet.
 ' Cross probing can be done from Excel to the PCB tool but that
 ' must be implemented using Excels VBA. (Author: Toby Rimes)
+
+' Add more component information.
+' Modify by szg on 2024/11/19
 Option Explicit     
 
 ' Constants
