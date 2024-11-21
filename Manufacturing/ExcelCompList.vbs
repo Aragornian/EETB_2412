@@ -52,7 +52,9 @@ ValidateServer(pcbDocObj)
 Set excelAppObj = CreateObject("Excel.Application")
    
 ' Load excel
+pcbAppObj.Gui.CursorBusy(True)
 Call LoadExcel()
+pcbAppObj.Gui.CursorBusy(False)
 
 ' Make the excel application visible.
 excelAppObj.Visible = True

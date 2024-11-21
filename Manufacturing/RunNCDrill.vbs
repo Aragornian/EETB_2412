@@ -22,13 +22,15 @@ Dim ncDrillOutputDirectory
 ncDrillOutputDirectory = masterPath + "Output\NCDrill\"
 
 ' Drill parameters
-' Dim drillSweepAxis,drillBandWidth, drillPDHLargerThan, mfFileName
-Const drillSweepAxis = eengSweepaxisHorizontal
+Dim drillSweepAxis
+' Dim drillBandWidth, drillPDHLargerThan, mfFileName
+drillSweepAxis = eengSweepaxisHorizontal
 Const drillBandWidth = 0.1
 Const drillPDHLargerThan = 1
 Const mfFileName = "UserDrillMachineFormat.dff"
 ' Chart formats
-' Dim aSOSC, aDC, dSOSL, fFontName, fName, fSize, lSpace, pWidth, pLD, pTD, pTolerance, nTolerance, hLS, vLS, inContours, sNotes, textFTC, chartTitle, chartUnit
+' Dim aSOSC, aDC, dSOSL, fFontName, fName, fSize, lSpace, pWidth, pLD, pTD, pTolerance, nTolerance, hLS, vLS, inContours, sNotes, textFTC, chartTitle
+Dim chartUnit
 Const aSOSC = TRUE
 Const aDC = TRUE
 Const dSOSL = FALSE
@@ -47,7 +49,7 @@ Const inContours = TRUE
 Const sNotes = "notes"
 Const textFTC = TRUE
 Const chartTitle = "title"
-Const chartUnit = eengChartUnitsMM
+chartUnit = eengChartUnitsMM
 
 If app.LockServer = True Then  
     app.Gui.CursorBusy(True)
