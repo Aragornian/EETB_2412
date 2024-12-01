@@ -21,7 +21,6 @@ jobName = pcbDocObj.FullName
 masterPath = pcbDocObj.MasterPath
 Dim odbOutputPath
 odbOutputPath = masterPath + "Output\ODBpp\"
-MsgBox odbOutputPath
 
 ' Create a FileSystemObject
 Dim fileSysObj 

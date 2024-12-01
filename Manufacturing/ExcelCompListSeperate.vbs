@@ -10,7 +10,9 @@
 Option Explicit     
 
 ' Constants
-Const SHEETNAME_COMP_LIST = "Component List"
+Const SHEETNAME_COMP_LIST_TOP = "Component List Top"
+Const SHEETNAME_COMP_LIST_BOTTOM = "Component List Bottom"
+Const SHEETNAME_COMP_LIST_INTERNAL = "Component List Internal"
 
 Const REFDES_COL = "A"
 Const PARTNAME_COL = "B"
@@ -68,16 +70,6 @@ Scripting.DontExit = True
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' Event Handlers
 
-' Document event fired when there is a selection change
-' typeEnum - Unused Enumerate
-Sub pcbDocObj_OnSelectionChange(typeEnum)
-	If ExcelIsRunning(excelAppObj) Then
-		Dim cmpsColl
-		Set cmpsColl = pcbDocObj.Components(epcbSelectSelected)
-		Call SelectComponentsInExcel(cmpsColl)
-	End If
-End Sub
-
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' Main Functions
 
@@ -86,63 +78,41 @@ Sub LoadExcel()
 	' Create a workbook
 	Dim workbookObj 
 	Set workbookObj = excelAppObj.Workbooks.Add
+	workbookObj.worksheets.Add
+	workbookObj.worksheets.Add
 	
 	' Get the first sheet
-	Dim cmpListSheetObj
-	Set cmpListSheetObj = workbookObj.Worksheets.Item(1)
+	Dim cmpListTopSheetObj, cmpListBotSheetObj, cmpListInSheetObj
+	Set cmpListTopSheetObj = workbookObj.Worksheets.Item(1)
+	Set cmpListBotSheetObj = workbookObj.worksheets.Item(2)
+	Set cmpListInSheetObj = workbookObj.worksheets.Item(3)
 	
 	' Rename the worksheet.
-	cmpListSheetObj.Name = SHEETNAME_COMP_LIST
+	cmpListTopSheetObj.Name = SHEETNAME_COMP_LIST_TOP
+	cmpListBotSheetObj.Name = SHEETNAME_COMP_LIST_BOTTOM
+	cmpListInSheetObj.Name = SHEETNAME_COMP_LIST_INTERNAL
 	
 	' Set the header information
-	Call DefineHeaders(cmpListSheetObj)
+	Call DefineHeaders(cmpListTopSheetObj)
+	Call DefineHeaders(cmpListBotSheetObj)
+	Call DefineHeaders(cmpListInSheetObj)
 	
 	' Get the components
 	Dim cmpColl
 	Set cmpColl = pcbDocObj.Components
+
+	Dim	cmpListSheetObjArr
+	cmpListSheetObjArr = Array(cmpListTopSheetObj, cmpListBotSheetObj, cmpListInSheetObj)
 	
 	' Sort the component collection
 	Call cmpColl.Sort()
 	
 	' Add the collection
-	Call AddComponents(cmpListSheetObj, FIRST_COMPONENT_ROW, cmpColl)
+	Call AddComponents(cmpListSheetObjArr, FIRST_COMPONENT_ROW, cmpColl)
 End Sub
 
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' Utility functions
-
-' Select the components in the spreadsheet.
-' cmpsColl - Component Collection
-Sub SelectComponentsInExcel(cmpsColl)
-	' Get the sheet
-	Dim cmpListSheetObj
-	Set cmpListSheetObj = excelAppObj.Sheets.Item(1)
-	
-	' Instantiate a range object to hold multiple cells
-	Dim multiRangeObj
-	Set multiRangeObj = Nothing
-    
-    ' Loop through all components to build a Range 
-    ' of rows for the components in cmpsColl
-    Dim cmpObj
-    For Each cmpObj In cmpsColl
-        ' Find the ref des in the Ref Des column. Match the whole name.
-        Dim foundCellObj
-        Set foundCellObj = cmpListSheetObj.Columns(REFDES_COL).Find(cmpObj.Name,,,xlWhole)
-        ' If we found something add it to the multi range
-        If Not foundCellObj Is Nothing Then   
-        	If  Not multiRangeObj Is Nothing Then       
-            	Set multiRangeObj = excelAppObj.Union(multiRangeObj, _
-            	    cmpListSheetObj.Rows(foundCellObj.Row))
-            Else
-            	Set multiRangeObj = cmpListSheetObj.Rows(foundCellObj.Row)
-            End If     
-        End If
-    Next
-    
-    ' Select all the rows in the range.
-    Call SelectExcelRange(cmpListSheetObj, multiRangeObj)
-End Sub
 
 ' Creates header information.
 ' sheetObj - Excel Worksheet Object
@@ -173,20 +143,36 @@ Sub DefineHeaders(sheetObj)
 End Sub
 
 ' Add the collection of components
-' sheetObj - Excel Worksheet Object
+' sheetObjArr - Excel Worksheet Object Array
 ' startRowInt - Integer
 ' cmpColl - Component Collection
-Sub AddComponents(sheetObj, startRowInt, cmpColl)
-	Dim rowInt
-	rowInt = startRowInt
-	Dim cmpObj
+Sub AddComponents(sheetObjArr, startRowInt, cmpColl)
+	Dim topSheetRowInt, botSheetRowInt, inSheetRowInt
+	topSheetRowInt = startRowInt
+	botSheetRowInt = startRowInt
+	inSheetRowInt = startRowInt
+	Dim cmpObj, sheetObj
 	For Each cmpObj In cmpColl
-		Call AddComponent(sheetObj, rowInt, cmpObj)
-		rowInt = rowInt + 1
+		If cmpObj.Layer = 1 Then
+			Set sheetObj = sheetObjArr(0)
+			Call AddComponent(sheetObj, topSheetRowInt, cmpObj)
+			topSheetRowInt = topSheetRowInt + 1
+		ElseIf cmpObj.Layer = pcbDocObj.LayerCount Then
+			Set sheetObj = sheetObjArr(1)
+			Call AddComponent(sheetObj, botSheetRowInt, cmpObj)
+			botSheetRowInt = botSheetRowInt + 1
+		Else
+			Set sheetObj = sheetObjArr(2)
+			Call AddComponent(sheetObj, inSheetRowInt, cmpObj)
+			inSheetRowInt = inSheetRowInt + 1
+		End If
 	Next
 	
 	' Adjust the cells size to fit the text
-	Call sheetObj.Columns.AutoFit()
+	Dim i
+	For i = 0 To UBound(sheetObjArr)
+		Call sheetObjArr(i).Columns.AutoFit()
+	Next
 End Sub
 
 ' Add a single component to row rowInt
@@ -245,57 +231,6 @@ End Sub
 
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' Helper Functions
-
-' Returns true if Excel is still running false otherwise
-' appObj - Excel Application Object
-Function ExcelIsRunning(appObj)
-	' Initialize return value
-	ExcelIsRunning = True
-
-	' If the variable is nothing return false
-	If appObj Is Nothing Then
-		ExcelIsRunning = False
-		Exit Function
-	End If
-	
-	' Check to see it excel is running by trying to call a method on
-	' excel.  If there is an exception assume it has been shut down.
-	On Error Resume Next
-	Call Err.Clear()
-	
-	' Make a call that would cause an exception
-	Dim sheetsObj
-	Set sheetsObj = appObj.Sheets
-	
-	' Check the error value.
-	If Err Then
-		Set appObj = Nothing
-		ExcelIsRunning = False
-	End If
-End Function
-
-' Selects a range of objects and colors the range yellow
-' sheetObj - Excel Worksheet object
-' rangeObj - Excel Range Object
-Sub SelectExcelRange(sheetObj, rangeObj)
-	' Remove the yellow
-	Call RemoveExcelFill(sheetObj)
-	If Not rangeObj Is Nothing Then
-		' Set the interior to yellow and select
-		rangeObj.Interior.ColorIndex = 6
-		Call rangeObj.Select()
-	Else
-		' Cause an unselection by selection first cell
-		Call sheetObj.Range("A1").Select()
-	End If
-End Sub
-
-' Sets the fill to white for all the cells on a sheet
-' sheetobj - Excel Sheet Object
-Sub RemoveExcelFill(sheetObj)
-	' Set all to white
-	sheetObj.Cells.Interior.ColorIndex = -4142
-End Sub
 
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' Miscelaneous Functions
