@@ -60,23 +60,13 @@ pcbAppObj.Gui.CursorBusy(False)
 excelAppObj.Visible = True
 
 ' Attach events to the document object to get selection changes.
-Call Scripting.AttachEvents(pcbDocObj, "pcbDocObj")
+' Call Scripting.AttachEvents(pcbDocObj, "pcbDocObj")
 
 ' Hang around to listen to events 
-Scripting.DontExit = True
+' Scripting.DontExit = True
 
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' Event Handlers
-
-' Document event fired when there is a selection change
-' typeEnum - Unused Enumerate
-Sub pcbDocObj_OnSelectionChange(typeEnum)
-	If ExcelIsRunning(excelAppObj) Then
-		Dim cmpsColl
-		Set cmpsColl = pcbDocObj.Components(epcbSelectSelected)
-		Call SelectComponentsInExcel(cmpsColl)
-	End If
-End Sub
 
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' Main Functions
@@ -110,39 +100,6 @@ End Sub
 
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' Utility functions
-
-' Select the components in the spreadsheet.
-' cmpsColl - Component Collection
-Sub SelectComponentsInExcel(cmpsColl)
-	' Get the sheet
-	Dim cmpListSheetObj
-	Set cmpListSheetObj = excelAppObj.Sheets.Item(1)
-	
-	' Instantiate a range object to hold multiple cells
-	Dim multiRangeObj
-	Set multiRangeObj = Nothing
-    
-    ' Loop through all components to build a Range 
-    ' of rows for the components in cmpsColl
-    Dim cmpObj
-    For Each cmpObj In cmpsColl
-        ' Find the ref des in the Ref Des column. Match the whole name.
-        Dim foundCellObj
-        Set foundCellObj = cmpListSheetObj.Columns(REFDES_COL).Find(cmpObj.Name,,,xlWhole)
-        ' If we found something add it to the multi range
-        If Not foundCellObj Is Nothing Then   
-        	If  Not multiRangeObj Is Nothing Then       
-            	Set multiRangeObj = excelAppObj.Union(multiRangeObj, _
-            	    cmpListSheetObj.Rows(foundCellObj.Row))
-            Else
-            	Set multiRangeObj = cmpListSheetObj.Rows(foundCellObj.Row)
-            End If     
-        End If
-    Next
-    
-    ' Select all the rows in the range.
-    Call SelectExcelRange(cmpListSheetObj, multiRangeObj)
-End Sub
 
 ' Creates header information.
 ' sheetObj - Excel Worksheet Object
@@ -245,57 +202,6 @@ End Sub
 
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' Helper Functions
-
-' Returns true if Excel is still running false otherwise
-' appObj - Excel Application Object
-Function ExcelIsRunning(appObj)
-	' Initialize return value
-	ExcelIsRunning = True
-
-	' If the variable is nothing return false
-	If appObj Is Nothing Then
-		ExcelIsRunning = False
-		Exit Function
-	End If
-	
-	' Check to see it excel is running by trying to call a method on
-	' excel.  If there is an exception assume it has been shut down.
-	On Error Resume Next
-	Call Err.Clear()
-	
-	' Make a call that would cause an exception
-	Dim sheetsObj
-	Set sheetsObj = appObj.Sheets
-	
-	' Check the error value.
-	If Err Then
-		Set appObj = Nothing
-		ExcelIsRunning = False
-	End If
-End Function
-
-' Selects a range of objects and colors the range yellow
-' sheetObj - Excel Worksheet object
-' rangeObj - Excel Range Object
-Sub SelectExcelRange(sheetObj, rangeObj)
-	' Remove the yellow
-	Call RemoveExcelFill(sheetObj)
-	If Not rangeObj Is Nothing Then
-		' Set the interior to yellow and select
-		rangeObj.Interior.ColorIndex = 6
-		Call rangeObj.Select()
-	Else
-		' Cause an unselection by selection first cell
-		Call sheetObj.Range("A1").Select()
-	End If
-End Sub
-
-' Sets the fill to white for all the cells on a sheet
-' sheetobj - Excel Sheet Object
-Sub RemoveExcelFill(sheetObj)
-	' Set all to white
-	sheetObj.Cells.Interior.ColorIndex = -4142
-End Sub
 
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' Miscelaneous Functions

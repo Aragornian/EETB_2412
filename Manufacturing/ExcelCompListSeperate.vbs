@@ -62,10 +62,10 @@ pcbAppObj.Gui.CursorBusy(False)
 excelAppObj.Visible = True
 
 ' Attach events to the document object to get selection changes.
-Call Scripting.AttachEvents(pcbDocObj, "pcbDocObj")
+' Call Scripting.AttachEvents(pcbDocObj, "pcbDocObj")
 
 ' Hang around to listen to events 
-Scripting.DontExit = True
+' Scripting.DontExit = True
 
 ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 ' Event Handlers
