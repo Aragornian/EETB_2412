@@ -22,13 +22,22 @@ Else
     ' Call from Expedition
     Dim app
     Dim docObj
-    Set app = GetObject(, "MGCPCB.ExpeditionPCBApplication." & sComVersion)
+    ' Set app = GetObject(, "MGCPCB.ExpeditionPCBApplication." & sComVersion)
+    Set app = Application
     Set docObj = GetLicensedDoc(app)
     jobName = docObj.FullName
     masterPath = docObj.MasterPath
 End If
 
-ExportDXF
+If app.LockServer = True Then  
+    app.Gui.CursorBusy(True)
+
+    ' Run export dxf
+    ExportDXF
+    
+    app.Gui.CursorBusy(False)
+    app.UnlockServer
+End If
 
 '************************************************************************
 '*** Main Function
