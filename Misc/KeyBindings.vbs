@@ -49,25 +49,25 @@ keyBindTableColl.AddKeyBinding "f","Edit->Fix Lock->Fix",BindMenu,BindAccelerato
 keyBindTableColl.AddKeyBinding "e","Smart Utilities->Design Editing Aids->Move /w Rich Graphics",BindMenu,BindAccelerator
 
 ' Toggle DRC
-keyBindTableColl.AddKeyBinding "g","run ToggleDRC.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "g","run %EETB%\Misc\ToggleDRC.vbs",BindCommand,BindAccelerator
 
 ' Toggle display patterns
-keyBindTableColl.AddKeyBinding "i","run ToggleDisplayPatterns.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "i","run %EETB%\Display\ToggleDisplayPatterns.vbs",BindCommand,BindAccelerator
 
 ' Toggle display planes
-keyBindTableColl.AddKeyBinding "j","run ToggleDisplayPlanes.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "j","run %EETB%\Display\ToggleDisplayPlanes.vbs",BindCommand,BindAccelerator
 
 ' Measure distance
 keyBindTableColl.AddKeyBinding "l","Edit->Measure->Minimum Distance",BindMenu,BindAccelerator
 
 ' Mirror view
-keyBindTableColl.AddKeyBinding "m","run ToggleMirrorView.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "m","run %EETB%\Display\ToggleMirrorView.vbs",BindCommand,BindAccelerator
 
 ' Toggle display netlines
-keyBindTableColl.AddKeyBinding "n","run ToggleDisplayNetlines.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "n","run %EETB%\Route\ToggleDisplayNetlines.vbs",BindCommand,BindAccelerator
 
 ' Toggle mode
-keyBindTableColl.AddKeyBinding "q","run ToggleMode.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "q","run %EETB%\Route\ToggleMode.vbs",BindCommand,BindAccelerator
 
 ' Swap parts and nets
 keyBindTableColl.AddKeyBinding "r","Place->Swap Parts",BindMenu,BindAccelerator
@@ -85,7 +85,7 @@ keyBindTableColl.AddKeyBinding "o","Planes->Plane Shape",BindMenu,BindAccelerato
 keyBindTableColl.AddKeyBinding "z","zb",BindCommand,BindAccelerator
 
 ' Assign net name
-keyBindTableColl.AddKeyBinding "Alt+a","run AssignNetName.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "Alt+a","run %EETB%\Route\AssignNetName.vbs",BindCommand,BindAccelerator
 
 ' Align object
 keyBindTableColl.AddKeyBinding "Alt+e","Edit->Align->Align Top",BindMenu,BindAccelerator
@@ -97,7 +97,7 @@ keyBindTableColl.AddKeyBinding "Alt+f","Edit->Align->Align Right",BindMenu,BindA
 keyBindTableColl.AddKeyBinding "Shift+q","rs 45",BindCommand,BindAccelerator
 
 ' Change plane to conductiveshape
-keyBindTableColl.AddKeyBinding "ctrl+\","run ChangePlaneToConductiveShape.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "ctrl+\","run %EETB%\Route\ChangePlaneToConductiveShape.vbs",BindCommand,BindAccelerator
 
 ' Change conductiveshape to plane
-keyBindTableColl.AddKeyBinding "ctrl+/","run ChangeConductiveShapeToPlane.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "ctrl+/","run %EETB%\Route\ChangeConductiveShapeToPlane.vbs",BindCommand,BindAccelerator

@@ -49,25 +49,25 @@ Call ExecuteBindFunction("f","RunFix")
 Call ExecuteBindFunction("e","RunMoveWithRichGraphic")
 
 ' Toggle DRC
-keyBindTableColl.AddKeyBinding "g","run ToggleDRC.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "g","run %EETB%\Misc\ToggleDRC.vbs",BindCommand,BindAccelerator
 
 ' Toggle display patterns
-keyBindTableColl.AddKeyBinding "i","run ToggleDisplayPatterns.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "i","run %EETB%\Display\ToggleDisplayPatterns.vbs",BindCommand,BindAccelerator
 
 ' Toggle display planes
-keyBindTableColl.AddKeyBinding "j","run ToggleDisplayPlanes.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "j","run %EETB%\Display\ToggleDisplayPlanes.vbs",BindCommand,BindAccelerator
 
 ' Measure distance
 Call ExecuteBindFunction("l","RunMeasureDistanceCenter")
 
 ' Mirror view
-keyBindTableColl.AddKeyBinding "m","run ToggleMirrorView.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "m","run %EETB%\Display\ToggleMirrorView.vbs",BindCommand,BindAccelerator
 
 ' Toggle display netlines
-keyBindTableColl.AddKeyBinding "n","run ToggleDisplayNetlines.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "n","run %EETB%\Route\ToggleDisplayNetlines.vbs",BindCommand,BindAccelerator
 
 ' Toggle mode
-keyBindTableColl.AddKeyBinding "q","run ToggleMode.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "q","run %EETB%\Misc\ToggleMode.vbs",BindCommand,BindAccelerator
 
 ' Swap parts and nets
 Call ExecuteBindFunction("r","RunSwapParts")
@@ -89,7 +89,7 @@ Call ExecuteBindFunction("o","RunDrawPlaneShape")
 keyBindTableColl.AddKeyBinding "z","zb",BindCommand,BindAccelerator
 
 ' Assign net name
-keyBindTableColl.AddKeyBinding "Alt+a","run AssignNetName.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "Alt+a","run %EETB%\Route\AssignNetName.vbs",BindCommand,BindAccelerator
 
 ' Align object
 Call ExecuteBindFunction("Alt+e","RunAlignTop")
@@ -101,10 +101,10 @@ Call ExecuteBindFunction("Alt+f","RunAlignRight")
 keyBindTableColl.AddKeyBinding "Shift+q","rs 45",BindCommand,BindAccelerator
 
 ' Change plane to conductiveshape
-keyBindTableColl.AddKeyBinding "ctrl+\","run ChangePlaneToConductiveShape.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "ctrl+\","run %EETB%\Route\ChangePlaneToConductiveShape.vbs",BindCommand,BindAccelerator
 
 ' Change conductiveshape to plane
-keyBindTableColl.AddKeyBinding "ctrl+/","run ChangeConductiveShapeToPlane.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "ctrl+/","run %EETB%\Route\ChangeConductiveShapeToPlane.vbs",BindCommand,BindAccelerator
 
 ' Keep this script running so that the handler can be executed 
 Scripting.DontExit = True

@@ -24,18 +24,25 @@ Dim eetbMenuObj, levelOneMenuObj, levelOneControlsColl, levelTwoMenuObj
 ' Check to see if the eetb menu is already there
 Set eetbMenuObj = FindMenu("EETB", docMenuBarObj)
 
-' If there is no eetb menu then add it
-If eetbMenuObj Is Nothing Then
-    ' Create the new button by adding to the control collection
-    Set eetbMenuObj = docMenuBarCtrlColl.Add(cmdControlPopup,,,-1)
-
-    ' Configure the menu control
-    eetbMenuObj.Caption = "EETB"
+' If there is already a eetb menu then delete it
+If Not eetbMenuObj Is Nothing Then
+    eetbMenuObj.Delete()
 End If
+' Create the new button by adding to the control collection
+Set eetbMenuObj = docMenuBarCtrlColl.Add(cmdControlPopup,,,-1)
+' Configure the menu control
+eetbMenuObj.Caption = "EETB"
 
 'Get the control collection for the new EETB menu
 Dim eetbControlsColl
 Set eetbControlsColl = eetbMenuObj.Controls
+
+''''''''''''''Add toolbox dialog menu under EETB ''''''''''''''''''''''''''
+
+Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
+    levelOneMenuObj.Caption = "EE Auto Tool Box"
+    levelOneMenuObj.OnAction = "run %EETB%\XpeditionAutoToolBox.efm"
+Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButtonSeparator,,,-1)
 
 '''''''''''''''''' Add "Display" menu under EETB ''''''''''''''''''''''''''
 
@@ -46,12 +53,14 @@ Set levelOneMenuObj = eetbControlsColl.Add(cmdControlPopup,,,-1)
     Set levelTwoMenuObj = levelOneControlsColl.Add(cmdControlButton,,,-1)
         levelTwoMenuObj.Caption = "Route"
         levelTwoMenuObj.OnAction = "run %EETB%\Display\DisplaySchemeRoute.vbs"
+    Set levelTwoMenuObj = levelOneControlsColl.Add(cmdControlButtonSeparator,,,-1)
     Set levelTwoMenuObj = levelOneControlsColl.Add(cmdControlButton,,,-1)
         levelTwoMenuObj.Caption = "AssemblyTop"
         levelTwoMenuObj.OnAction = "run %EETB%\Display\DisplaySchemeAssemblyTop.vbs"
     Set levelTwoMenuObj = levelOneControlsColl.Add(cmdControlButton,,,-1)
         levelTwoMenuObj.Caption = "AssemblyBottom"
         levelTwoMenuObj.OnAction = "run %EETB%\Display\DisplaySchemeAssemblyBottom.vbs"
+    Set levelTwoMenuObj = levelOneControlsColl.Add(cmdControlButtonSeparator,,,-1)
     Set levelTwoMenuObj = levelOneControlsColl.Add(cmdControlButton,,,-1)
         levelTwoMenuObj.Caption = "Color Power/GND"
         levelTwoMenuObj.OnAction = "run %EETB%\Display\SetGndPwrNetsColor.vbs"

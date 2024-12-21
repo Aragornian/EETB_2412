@@ -1,2 +1,2 @@
 # Mentor-Xpedition-Script
-Some scripts for Mentor Xpedition Automation
+Some scripts for Mentor Xpedition Layout Automation
