@@ -109,7 +109,7 @@ Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
     levelOneMenuObj.OnAction = "run %EETB%\Manufacturing\ODBPPOutput.vbs"
 
 Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
-    levelOneMenuObj.Caption = "BOM"
+    levelOneMenuObj.Caption = "Parts Coordinate"
     levelOneMenuObj.OnAction = "run %EETB%\Manufacturing\ExcelComplist.vbs"
 
 ' Keep this script running so that the handler can be executed.
