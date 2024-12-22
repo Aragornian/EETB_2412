@@ -63,10 +63,10 @@ Set levelOneMenuObj = eetbControlsColl.Add(cmdControlPopup,,,-1)
     Set levelTwoMenuObj = levelOneControlsColl.Add(cmdControlButtonSeparator,,,-1)
     Set levelTwoMenuObj = levelOneControlsColl.Add(cmdControlButton,,,-1)
         levelTwoMenuObj.Caption = "Color Power/GND"
-        levelTwoMenuObj.OnAction = "run %EETB_2412%\Display\SetGndPwrNetsColor.vbs"
+        levelTwoMenuObj.OnAction = "run %EETB_2412%\Display\ColorGndPwrNets.vbs"
     Set levelTwoMenuObj = levelOneControlsColl.Add(cmdControlButton,,,-1)
         levelTwoMenuObj.Caption = "Color Impedance NetClasses"
-        levelTwoMenuObj.OnAction = "run %EETB_2412%\Display\SetNetClassesColor.vbs"
+        levelTwoMenuObj.OnAction = "run %EETB_2412%\Display\ColorNetClasses.vbs"
 
 '''''''''''''''''' Add another menu under EETB_2412 ''''''''''''''''''''''''''''
 
