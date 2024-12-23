@@ -84,7 +84,7 @@ Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
 
 Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
     levelOneMenuObj.Caption = "Adjust Silkscreen RefDes"
-    levelOneMenuObj.OnAction = "run %EETB_2412%\Manufacturing\RefDesAdjust.vbs"
+    levelOneMenuObj.OnAction = "run %EETB_2412%\Manufacturing\AdjustRefDes.vbs"
 
 Set levelOneMenuObj = eetbControlsColl.Add(cmdControlPopup,,,-1)
     levelOneMenuObj.Caption = "DXF Output"
@@ -106,7 +106,7 @@ Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
 
 Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
     levelOneMenuObj.Caption = "ODB++ Output"
-    levelOneMenuObj.OnAction = "run %EETB_2412%\Manufacturing\ODBPPOutput.vbs"
+    levelOneMenuObj.OnAction = "run %EETB_2412%\Manufacturing\RunODBpp.vbs"
 
 Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
     levelOneMenuObj.Caption = "Parts Coordinate"
