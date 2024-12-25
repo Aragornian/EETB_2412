@@ -28,6 +28,16 @@ Const dyCopiesY = 0
 Const gbrMatchineFormatFileName = "UserGerberMachineFile.gmf"
 Const FlashPadsFlag = TRUE
 
+' Create a FileSystemObject
+Dim fileSysObj, gbrOutputPath
+gbrOutputPath = masterPath + "Output\Gerber"
+MsgBox gbrOutputPath
+Set fileSysObj = CreateObject("Scripting.FileSystemObject")
+' Delete existed file
+If fileSysObj.FolderExists(gbrOutputPath) = True Then
+    fileSysObj.DeleteFolder(gbrOutputPath)
+End If
+
 If app.LockServer = True Then  
     app.Gui.CursorBusy(True)
     
