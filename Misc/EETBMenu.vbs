@@ -112,6 +112,10 @@ Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
     levelOneMenuObj.Caption = "Parts Coordinate"
     levelOneMenuObj.OnAction = "run %EETB_2412%\Manufacturing\ExcelComplist.vbs"
 
+Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
+    levelOneMenuObj.Caption = "DxArchiver"
+    levelOneMenuObj.OnAction = "run %EETB_2412%\Misc\DesignArchive.vbs"
+
 ' Keep this script running so that the handler can be executed.
 ' Scripting.DontExit = True
 

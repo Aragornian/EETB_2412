@@ -38,15 +38,15 @@ keyBindTableColl.AddKeyBinding "num -","cl 11",BindCommand,BindAccelerator
 keyBindTableColl.AddKeyBinding "num +","cl 12",BindCommand,BindAccelerator
 
 ' Snap
-Call ExecuteBindFunction("a","RunSnapToggleHover")
+Call ExecuteKeyBindFunction("a","RunSnapToggleHover")
 
 ' Edit Fix & Lock
-Call ExecuteBindFunction("s","RunUnfix")
-Call ExecuteBindFunction("d","RunSemiFix")
-Call ExecuteBindFunction("f","RunFix")
+Call ExecuteKeyBindFunction("s","RunUnfix")
+Call ExecuteKeyBindFunction("d","RunSemiFix")
+Call ExecuteKeyBindFunction("f","RunFix")
 
 ' Move rich graph
-Call ExecuteBindFunction("e","RunMoveWithRichGraphic")
+Call ExecuteKeyBindFunction("e","RunMoveWithRichGraphic")
 
 ' Toggle DRC
 keyBindTableColl.AddKeyBinding "g","run %EETB_2412%\Misc\ToggleDRC.vbs",BindCommand,BindAccelerator
@@ -58,7 +58,7 @@ keyBindTableColl.AddKeyBinding "i","run %EETB_2412%\Display\ToggleDisplayPattern
 keyBindTableColl.AddKeyBinding "j","run %EETB_2412%\Display\ToggleDisplayPlanes.vbs",BindCommand,BindAccelerator
 
 ' Measure distance
-Call ExecuteBindFunction("l","RunMeasureDistanceCenter")
+Call ExecuteKeyBindFunction("l","RunMeasureDistanceCenter")
 
 ' Mirror view
 keyBindTableColl.AddKeyBinding "m","run %EETB_2412%\Display\ToggleMirrorView.vbs",BindCommand,BindAccelerator
@@ -68,22 +68,25 @@ keyBindTableColl.AddKeyBinding "n","run %EETB_2412%\Route\ToggleDisplayNetlines.
 
 ' Toggle mode
 keyBindTableColl.AddKeyBinding "q","run %EETB_2412%\Misc\ToggleMode.vbs",BindCommand,BindAccelerator
+Call ExecuteStrokeBindFunction("258","RunDrawMode")
+Call ExecuteStrokeBindFunction("654","RunPlaceMode")
+Call ExecuteStrokeBindFunction("456","RunRouteMode")
 
 ' Swap parts and nets
-Call ExecuteBindFunction("r","RunSwapParts")
-Call ExecuteBindFunction("t","RunSwapNets")
+Call ExecuteKeyBindFunction("r","RunSwapParts")
+Call ExecuteKeyBindFunction("t","RunSwapNets")
 
 ' Find next open net
 keyBindTableColl.AddKeyBinding "v","fnl",BindCommand,BindAccelerator
 
 ' Edit Shape
-Call ExecuteBindFunction("w","RunModifyShape")
+Call ExecuteKeyBindFunction("w","RunModifyShape")
 
 ' Cut trace
-Call ExecuteBindFunction("`","RunCutTrace")
+Call ExecuteKeyBindFunction("`","RunCutTrace")
 
 ' Draw shape
-Call ExecuteBindFunction("o","RunDrawPlaneShape")
+Call ExecuteKeyBindFunction("o","RunDrawPlaneShape")
 
 ' Show whole board
 keyBindTableColl.AddKeyBinding "z","zb",BindCommand,BindAccelerator
@@ -92,10 +95,10 @@ keyBindTableColl.AddKeyBinding "z","zb",BindCommand,BindAccelerator
 keyBindTableColl.AddKeyBinding "Alt+a","run %EETB_2412%\Route\AssignNetName.vbs",BindCommand,BindAccelerator
 
 ' Align object
-Call ExecuteBindFunction("Alt+e","RunAlignTop")
-Call ExecuteBindFunction("Alt+d","RunAlignBottom")
-Call ExecuteBindFunction("Alt+s","RunAlignLeft")
-Call ExecuteBindFunction("Alt+f","RunAlignRight")
+Call ExecuteKeyBindFunction("Alt+e","RunAlignTop")
+Call ExecuteKeyBindFunction("Alt+d","RunAlignBottom")
+Call ExecuteKeyBindFunction("Alt+s","RunAlignLeft")
+Call ExecuteKeyBindFunction("Alt+f","RunAlignRight")
 
 ' Rotation
 keyBindTableColl.AddKeyBinding "Shift+q","rs 45",BindCommand,BindAccelerator
@@ -109,9 +112,18 @@ keyBindTableColl.AddKeyBinding "ctrl+/","run %EETB_2412%\Route\ChangeConductiveS
 ' Keep this script running so that the handler can be executed 
 Scripting.DontExit = True
 
-Sub ExecuteBindFunction(shortcutkey,usrfunction)
+Sub ExecuteKeyBindFunction(shortcutkey,usrfunction)
     Dim bindObj
     Set bindObj = keyBindTableColl.AddKeyBinding(shortcutkey, usrfunction, BindFunction, BindAccelerator)
+    ' Associate the current script engine with the key binding  
+    bindObj.Target = ScriptEngine
+    ' Call method below with this name 
+    bindObj.ExecuteMethod = usrfunction 
+End Sub
+
+Sub ExecuteStrokeBindFunction(stroke,usrfunction)
+    Dim bindObj
+    Set bindObj = keyBindTableColl.AddStrokeBinding(stroke, usrfunction, BindFunction, BindAccelerator)
     ' Associate the current script engine with the key binding  
     bindObj.Target = ScriptEngine
     ' Call method below with this name 
@@ -191,4 +203,19 @@ End Sub
 Sub RunSnapToggleHover()
     ' "Smart Utilities->Design Editing Aids->Move /w Rich Graphics"
     Gui.ProcessCommand(59417)
+End Sub
+
+Sub RunPlaceMode()
+    ' CMD_MODE_PLACE
+    Gui.ProcessCommand(32813)
+End Sub
+
+Sub RunRouteMode()
+    ' CMD_MODE_ROUTE
+    Gui.ProcessCommand(32814)
+End Sub
+
+Sub RunDrawMode()
+    ' CMD_MODE_DRAW
+    Gui.ProcessCommand(32835)
 End Sub
