@@ -18,6 +18,8 @@ Select Case CurrentModeEnum
         pcbAppObj.Gui.Processcommand(32835)
     Case epcbModeDrawing
         pcbAppObj.Gui.Processcommand(32813)
+    Case epcbModeModeless
+        pcbAppObj.Gui.ProcessCommand(32814)
     Case Else
         MsgBox("Unsupported")
 End Select
