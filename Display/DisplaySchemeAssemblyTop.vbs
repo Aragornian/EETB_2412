@@ -121,7 +121,7 @@ If pcbAppObj.LockServer = True Then
 			.Visible( "Group.Outline.Bottom" ) = epcbGraphicsItemStateOffEnabled
 			.Visible( "Group.Outline.Bubble.Top" ) = epcbGraphicsItemStateOffEnabled 
 			.Visible( "Group.Outline.Bubble.Bottom" ) = epcbGraphicsItemStateOffEnabled 
-			.Visible( "Place.Part.Text.RefDes.Top" ) = epcbGraphicsItemStateOffEnabled 
+			.Visible( "Place.Part.Text.RefDes.Top" ) = epcbGraphicsItemStateOnEnabled 
 			.Visible( "Place.Part.Text.RefDes.Bottom" ) = epcbGraphicsItemStateOffEnabled
 			
                 .Option( "Option.SelectableInsidePartOutline" ) = epcbGraphicsItemStateOffEnabled
@@ -154,6 +154,7 @@ If pcbAppObj.LockServer = True Then
         .Option( "Option.PlaceObjects.Parts.Bottom" ) = epcbGraphicsItemStateOffEnabled 
 		.Option( "Option.PlaceObjects" ) = epcbGraphicsItemStateOnEnabled
         'Lock
+        .Global.Color( "Place.Part.Text.RefDes.Top" ) = utilityObj.NewColorPattern( 0, 0, 0, 100, 0, False, True ) 
         .Global.Color( "Part.Pin.NumberType.Top" ) = utilityObj.NewColorPattern( 255, 0, 153, 100, 0, False, True ) 
         'Unlock
 
@@ -381,16 +382,16 @@ If pcbAppObj.LockServer = True Then
             .Visible( "Fabrication.Silkscreen.Part.Outline.Top" ) = epcbGraphicsItemStateOnEnabled 
             .Visible( "Fabrication.Silkscreen.Part.Text.PartNumber.Bottom" ) = epcbGraphicsItemStateOffEnabled 
             .Visible( "Fabrication.Silkscreen.Part.Text.PartNumber.Top" ) = epcbGraphicsItemStateOffEnabled 
-            .Visible( "Fabrication.Silkscreen.Part.Text.RefDes.Top" ) = epcbGraphicsItemStateOnEnabled 
-            .Visible( "Fabrication.Silkscreen.Part.Text.RefDes.Bottom" ) = epcbGraphicsItemStateOnEnabled 
+            .Visible( "Fabrication.Silkscreen.Part.Text.RefDes.Top" ) = epcbGraphicsItemStateOffEnabled 
+            .Visible( "Fabrication.Silkscreen.Part.Text.RefDes.Bottom" ) = epcbGraphicsItemStateOffEnabled 
             .Visible( "Fabrication.Silkscreen.Generated.Bottom" ) = epcbGraphicsItemStateOffEnabled 
             .Visible( "Fabrication.Silkscreen.Generated.Top" ) = epcbGraphicsItemStateOffEnabled 
         .Option( "Option.Fabrication.SilkscreenItems.Top" ) = epcbGraphicsItemStateOnEnabled 
         .Option( "Option.Fabrication.SilkscreenItems.Bottom" ) = epcbGraphicsItemStateOffEnabled 
             .Visible( "Fabrication.Assembly.TestPoint.Text.RefDes.Bottom" ) = epcbGraphicsItemStateOffEnabled 
             .Visible( "Fabrication.Assembly.TestPoint.Text.RefDes.Top" ) = epcbGraphicsItemStateOffEnabled 
-            .Visible( "Fabrication.Silkscreen.TestPoint.Text.RefDes.Bottom" ) = epcbGraphicsItemStateOnEnabled 
-            .Visible( "Fabrication.Silkscreen.TestPoint.Text.RefDes.Top" ) = epcbGraphicsItemStateOnEnabled 
+            .Visible( "Fabrication.Silkscreen.TestPoint.Text.RefDes.Bottom" ) = epcbGraphicsItemStateOffEnabled 
+            .Visible( "Fabrication.Silkscreen.TestPoint.Text.RefDes.Top" ) = epcbGraphicsItemStateOffEnabled 
             .Visible( "Fabrication.Silkscreen.TestPoint.Probe.Bottom" ) = epcbGraphicsItemStateOffEnabled 
             .Visible( "Fabrication.Silkscreen.TestPoint.Probe.Top" ) = epcbGraphicsItemStateOffEnabled 
         .Option( "Option.Fabrication.TestPointItems.Top" ) = epcbGraphicsItemStateOnEnabled 

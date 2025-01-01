@@ -69,6 +69,8 @@ If pcbAppObj.LockServer = True Then
                 ' Mirror text if component is on bottom side
                 If compSide = epcbSideBottom Then
                     fabTextFormat.Mirrored = True
+                Else
+                    fabTextFormat.Mirrored = False
                 End If
                 ' Adjust text orientation for Reading convenience
                 ' PlacementOutlines must exist in component
