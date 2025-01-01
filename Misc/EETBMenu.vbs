@@ -82,6 +82,17 @@ Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
     levelOneMenuObj.Caption = "Get Polygon Area"
     levelOneMenuObj.OnAction = "run %EETB_2412%\Route\GetPolyArea.vbs"
 
+Set levelOneMenuObj = eetbControlsColl.Add(cmdControlPopup,,,-1)
+    levelOneMenuObj.Caption = "Place Thermal Override"
+    Set levelOneControlsColl = levelOneMenuObj.Controls
+    Set levelTwoMenuObj = levelOneControlsColl.Add(cmdControlButton,,,-1)
+    levelTwoMenuObj.Caption = "Thermal TieLegFour"
+    levelTwoMenuObj.OnAction = "run %EETB_2412%\Route\ThermalTieLegFour.vbs"
+    Set levelTwoMenuObj = levelOneControlsColl.Add(cmdControlButton,,,-1)
+    levelTwoMenuObj.Caption = "Thermal TieLegNone"
+    levelTwoMenuObj.OnAction = "run %EETB_2412%\Route\ThermalTieLegNone.vbs"
+Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButtonSeparator,,,-1)
+
 Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
     levelOneMenuObj.Caption = "Adjust Silkscreen RefDes"
     levelOneMenuObj.OnAction = "run %EETB_2412%\Manufacturing\AdjustRefDes.vbs"

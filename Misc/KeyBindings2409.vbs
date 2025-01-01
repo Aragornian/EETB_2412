@@ -89,7 +89,9 @@ Call ExecuteKeyBindFunction("`","RunCutTrace")
 Call ExecuteKeyBindFunction("o","RunDrawPlaneShape")
 
 ' Show whole board
-keyBindTableColl.AddKeyBinding "z","zb",BindCommand,BindAccelerator
+' keyBindTableColl.AddKeyBinding "z","zb",BindCommand,BindAccelerator
+' Delete all stack mocrovia
+keyBindTableColl.AddKeyBinding "z","run %EETB_2412%\Route\DeleteAllStackMicroVia.vbs",BindCommand,BindAccelerator
 
 ' Assign net name
 keyBindTableColl.AddKeyBinding "Alt+a","run %EETB_2412%\Route\AssignNetName.vbs",BindCommand,BindAccelerator
@@ -108,6 +110,15 @@ keyBindTableColl.AddKeyBinding "ctrl+\","run %EETB_2412%\Route\ChangePlaneToCond
 
 ' Change conductiveshape to plane
 keyBindTableColl.AddKeyBinding "ctrl+/","run %EETB_2412%\Route\ChangeConductiveShapeToPlane.vbs",BindCommand,BindAccelerator
+
+' Thermal tielegFour
+keyBindTableColl.AddKeyBinding "ctrl+1","run %EETB_2412%\Route\ThermalTieLegFour.vbs",BindCommand,BindAccelerator
+
+' Thermal tielegNone
+keyBindTableColl.AddKeyBinding "ctrl+2","run %EETB_2412%\Route\ThermalTieLegNone.vbs",BindCommand,BindAccelerator
+
+' Remove thermal tieleg override
+keyBindTableColl.AddKeyBinding "ctrl+3","run %EETB_2412%\Route\ThermalTieLegOverrideRemove.vbs",BindCommand,BindAccelerator
 
 ' Keep this script running so that the handler can be executed 
 Scripting.DontExit = True
@@ -136,8 +147,8 @@ Sub RunCutTrace()
 End Sub
 
 Sub RunMeasureDistanceCenter()
-    ' "Edit->Measure->Measure Minimum Distance"
-    Gui.ProcessCommand(60853)
+    ' "MEASURE_MINIMUM_DISTANCE"
+    Gui.ProcessCommand(34167)
 End Sub
 
 Sub RunDrawPlaneShape()
