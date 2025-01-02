@@ -5,11 +5,13 @@ Dim pcbAppObj
 Set pcbAppObj = Application
 
 ' Get the active document
-Dim pcbDocObj, jobName, masterPath
+Dim pcbDocObj, jobName, mPath
 Set pcbDocObj = pcbAppObj.ActiveDocument
 
 ' License the document
 ValidateServer(pcbDocObj)
+
+mPath = pcbDocObj.MasterPath
 
 ' Get the application object
 Dim dllApp
@@ -21,7 +23,8 @@ Set execObj = CreateObject("viewlogic.Exec")
 Dim DxArchiverFileName, projectFileName, outputDir
 DxArchiverFileName = dllApp.sddHome + "\common\win64\bin\DxArchiver.exe"
 projectFileName = pcbDocObj.ProjectIntegration.ProjectFile
-outputDir = ".\"
+' outputDir = ".\"
+outputDir = Left(mPath, Len(mPath) - 4)
 
 ' Save design before archiving
 ' FILE_SAVE   57603
