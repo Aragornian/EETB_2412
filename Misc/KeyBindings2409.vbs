@@ -37,6 +37,12 @@ keyBindTableColl.AddKeyBinding "num 0","cl 10",BindCommand,BindAccelerator
 keyBindTableColl.AddKeyBinding "num -","cl 11",BindCommand,BindAccelerator
 keyBindTableColl.AddKeyBinding "num +","cl 12",BindCommand,BindAccelerator
 
+' View options
+keyBindTableColl.AddKeyBinding "PageDown","run %EETB_2412%\Display\zoom.vbs 1",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "PageUp","run %EETB_2412%\Display\zoom.vbs 2",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "Home","run %EETB_2412%\Display\zoom.vbs 3",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "End","run %EETB_2412%\Display\zoom.vbs 4",BindCommand,BindAccelerator
+
 ' Snap
 Call ExecuteKeyBindFunction("a","RunSnapToggleHover")
 
@@ -65,6 +71,9 @@ keyBindTableColl.AddKeyBinding "m","run %EETB_2412%\Display\ToggleMirrorView.vbs
 
 ' Toggle display netlines
 keyBindTableColl.AddKeyBinding "n","run %EETB_2412%\Route\ToggleDisplayNetlines.vbs",BindCommand,BindAccelerator
+
+' Place all component
+keyBindTableColl.AddKeyBinding "p", "pr -dist *", BindCommand, BindAccelerator
 
 ' Toggle mode
 keyBindTableColl.AddKeyBinding "q","run %EETB_2412%\Misc\ToggleMode.vbs",BindCommand,BindAccelerator
@@ -106,19 +115,19 @@ Call ExecuteKeyBindFunction("Alt+f","RunAlignRight")
 keyBindTableColl.AddKeyBinding "Shift+q","rs 45",BindCommand,BindAccelerator
 
 ' Change plane to conductiveshape
-keyBindTableColl.AddKeyBinding "ctrl+\","run %EETB_2412%\Route\ChangePlaneToConductiveShape.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "ctrl+\","run %EETB_2412%\Route\ChangeShapeType.vbs 1",BindCommand,BindAccelerator
 
 ' Change conductiveshape to plane
-keyBindTableColl.AddKeyBinding "ctrl+/","run %EETB_2412%\Route\ChangeConductiveShapeToPlane.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "ctrl+/","run %EETB_2412%\Route\ChangeShapeType.vbs 2",BindCommand,BindAccelerator
 
 ' Thermal tielegFour
-keyBindTableColl.AddKeyBinding "ctrl+1","run %EETB_2412%\Route\ThermalTieLegFour.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "ctrl+1","run %EETB_2412%\Route\ThermalTieLegType.vbs 1",BindCommand,BindAccelerator
 
 ' Thermal tielegNone
-keyBindTableColl.AddKeyBinding "ctrl+2","run %EETB_2412%\Route\ThermalTieLegNone.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "ctrl+2","run %EETB_2412%\Route\ThermalTieLegType.vbs 2",BindCommand,BindAccelerator
 
 ' Remove thermal tieleg override
-keyBindTableColl.AddKeyBinding "ctrl+3","run %EETB_2412%\Route\ThermalTieLegOverrideRemove.vbs",BindCommand,BindAccelerator
+keyBindTableColl.AddKeyBinding "ctrl+3","run %EETB_2412%\Route\ThermalTieLegType.vbs 3",BindCommand,BindAccelerator
 
 ' Keep this script running so that the handler can be executed 
 Scripting.DontExit = True

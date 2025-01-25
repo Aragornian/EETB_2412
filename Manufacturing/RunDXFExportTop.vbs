@@ -81,7 +81,8 @@ Sub ExportDXF()
     	Write oError.ErrorString
     Next
 
-    MsgBox "Finished DXF Export"
+    Write "Finished DXF_Top Export"
+    Write outputFile
 End Sub
 
 Sub Write(sMsg)

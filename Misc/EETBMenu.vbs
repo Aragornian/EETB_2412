@@ -44,6 +44,14 @@ Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
     levelOneMenuObj.OnAction = "run %EETB_2412%\XpeditionAutoToolBox.efm"
 Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButtonSeparator,,,-1)
 
+Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
+    levelOneMenuObj.Caption = "Unfix & Unlock"
+    levelOneMenuObj.OnAction = "run %EETB_2412%\Route\UnfixUnlockObject.vbs"
+
+Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
+    levelOneMenuObj.Caption = "Get Polygon Area"
+    levelOneMenuObj.OnAction = "run %EETB_2412%\Route\GetPolyArea.vbs"
+
 '''''''''''''''''' Add "Display" menu under EETB_2412 ''''''''''''''''''''''''''
 
 ' Create the new button by adding to the control collection
@@ -68,30 +76,32 @@ Set levelOneMenuObj = eetbControlsColl.Add(cmdControlPopup,,,-1)
         levelTwoMenuObj.Caption = "Color Impedance NetClasses"
         levelTwoMenuObj.OnAction = "run %EETB_2412%\Display\ColorNetClasses.vbs"
 
-'''''''''''''''''' Add another menu under EETB_2412 ''''''''''''''''''''''''''''
+'''''''''''''''''' Add "Route" menu under EETB_2412 ''''''''''''''''''''''''''''
 
-Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
-    levelOneMenuObj.Caption = "Set PadEntry"
-    levelOneMenuObj.OnAction = "run %EETB_2412%\Constraint\SetPadEntry.vbs"
+Set levelOneMenuObj = eetbControlsColl.Add(cmdControlPopup,,,-1)
+    levelOneMenuObj.Caption = "Route"
+    Set levelOneControlsColl = levelOneMenuObj.Controls
+    Set levelTwoMenuObj = levelOneControlsColl.Add(cmdControlButton,,,-1)
+        levelTwoMenuObj.Caption = "Set PadEntry"
+        levelTwoMenuObj.OnAction = "run %EETB_2412%\Constraint\SetPadEntry.vbs"
+    Set levelTwoMenuObj = levelOneControlsColl.Add(cmdControlButton,,,-1)
+        levelTwoMenuObj.Caption = "Toggle Allow Loops"
+        levelTwoMenuObj.OnAction = "run %EETB_2412%\Route\ToggleAllowLoops.vbs"
 
-Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
-    levelOneMenuObj.Caption = "Unfix & Unlock"
-    levelOneMenuObj.OnAction = "run %EETB_2412%\Route\UnfixUnlockObject.vbs"
-
-Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
-    levelOneMenuObj.Caption = "Get Polygon Area"
-    levelOneMenuObj.OnAction = "run %EETB_2412%\Route\GetPolyArea.vbs"
+'''''''''''''' Add "Place Thermal Override" menu under EETB_2412 '''''''''''''''
 
 Set levelOneMenuObj = eetbControlsColl.Add(cmdControlPopup,,,-1)
     levelOneMenuObj.Caption = "Place Thermal Override"
     Set levelOneControlsColl = levelOneMenuObj.Controls
     Set levelTwoMenuObj = levelOneControlsColl.Add(cmdControlButton,,,-1)
     levelTwoMenuObj.Caption = "Thermal TieLegFour"
-    levelTwoMenuObj.OnAction = "run %EETB_2412%\Route\ThermalTieLegFour.vbs"
+    levelTwoMenuObj.OnAction = "run %EETB_2412%\Route\ThermalTieLegType.vbs 1"
     Set levelTwoMenuObj = levelOneControlsColl.Add(cmdControlButton,,,-1)
     levelTwoMenuObj.Caption = "Thermal TieLegNone"
-    levelTwoMenuObj.OnAction = "run %EETB_2412%\Route\ThermalTieLegNone.vbs"
+    levelTwoMenuObj.OnAction = "run %EETB_2412%\Route\ThermalTieLegType.vbs 2"
 Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButtonSeparator,,,-1)
+
+'''''''''''''''''' Add another menu under EETB_2412 ''''''''''''''''''''''''''''
 
 Set levelOneMenuObj = eetbControlsColl.Add(cmdControlButton,,,-1)
     levelOneMenuObj.Caption = "Adjust Silkscreen RefDes"
