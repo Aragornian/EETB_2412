@@ -15,9 +15,9 @@ Select Case CurrentModeEnum
     Case epcbModePlace
         pcbAppObj.Gui.Processcommand(32814)
     Case epcbModeRoute
-        pcbAppObj.Gui.Processcommand(32835)
-    Case epcbModeDrawing
         pcbAppObj.Gui.Processcommand(32813)
+    Case epcbModeDrawing
+        pcbAppObj.Gui.Processcommand(32814)
     Case epcbModeModeless
         pcbAppObj.Gui.ProcessCommand(32814)
     Case Else
